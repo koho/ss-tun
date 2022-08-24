@@ -12,6 +12,10 @@ and [shadowsocks-libev](https://github.com/shadowsocks/shadowsocks-libev).
 
 ## Usage
 
+```shell
+docker pull sstun/ss-tun
+```
+
 You must run this container in `--privileged` mode. See [Run](#Run).
 
 ### Environment variable
