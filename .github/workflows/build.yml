@@ -23,4 +23,4 @@ jobs:
         uses: docker/build-push-action@v3
         with:
           push: true
-          tags: ${{ github.repository }}:latest
+          tags: ${{ secrets.DOCKERHUB_USERNAME }}/ss-tun:latest
