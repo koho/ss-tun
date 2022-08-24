@@ -53,7 +53,7 @@ The subscription link should download a JSON file that contains an array of prox
 For examples, your local subnet is `192.168.0.0/16`.
 
 ```shell
-docker run --privileged -e URL=https://example.com/ -e NET=192.168.0.0/16 ss-tun
+docker run --privileged -e URL=https://example.com/ -e NET=192.168.0.0/16 sstun/ss-tun
 ```
 
 ### Change gateway
