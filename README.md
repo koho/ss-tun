@@ -20,11 +20,12 @@ You must run this container in `--privileged` mode. See [Run](#Run).
 
 ### Environment variable
 
-| Env  | Description                                  | Required |
-|------|----------------------------------------------|----------|
-| URL  | Shadowsocks subscription link                | Yes      |
-| NET  | Subnet (CIDR) traffic that goes into tunnel  | Yes      |
-| NAME | Use the specific named proxy in subscription | No       |
+| Env    | Description                                          | Required |
+|--------|------------------------------------------------------|----------|
+| URL    | Shadowsocks subscription link                        | Yes      |
+| SUBNET | Subnet (CIDR) traffic that goes into tunnel          | Yes      |
+| NAME   | Use the specific named proxy in subscription         | No       |
+| UPDATE | If "true", update config file from subscription link | No       |
 
 ### Subscription format
 
@@ -53,7 +54,7 @@ The subscription link should download a JSON file that contains an array of prox
 For examples, your local subnet is `192.168.0.0/16`.
 
 ```shell
-docker run --privileged -e URL=https://example.com/ -e NET=192.168.0.0/16 sstun/ss-tun
+docker run --privileged -e URL=https://example.com/ -e SUBNET=192.168.0.0/16 sstun/ss-tun
 ```
 
 ### Change gateway
