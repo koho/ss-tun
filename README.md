@@ -3,6 +3,9 @@
 This Docker image is a combination of [badvpn-tun2socks](https://github.com/ambrop72/badvpn)
 and [shadowsocks-libev](https://github.com/shadowsocks/shadowsocks-libev).
 
+Since [shadowsocks-rust](https://github.com/shadowsocks/shadowsocks-rust) has a native support for tun mode, we don't
+need tun2socks anymore.
+
 ## How it works
 
 1. Create a [TUN](https://en.wikipedia.org/wiki/TUN/TAP) device like a VPN software.
@@ -22,10 +25,13 @@ You must run this container in `--privileged` mode. See [Run](#Run).
 
 | Env    | Description                                          | Required |
 |--------|------------------------------------------------------|----------|
-| URL    | Shadowsocks subscription link                        | Yes      |
+| URL    | Shadowsocks subscription link                        | No       |
 | SUBNET | Subnet (CIDR) traffic that goes into tunnel          | Yes      |
 | NAME   | Use the specific named proxy in subscription         | No       |
 | UPDATE | If "true", update config file from subscription link | No       |
+
+If you don't use subscription link, mount the local config file to the container
+using `-v /etc/ss/config.json:/ss-sub.json`.
 
 ### Subscription format
 
@@ -35,6 +41,7 @@ The subscription link should download a JSON file that contains an array of prox
 [
   {
     "name": "server1",
+    "remarks": "My Server",
     "server": "example.com",
     "server_port": 2345,
     "method": "aes-256-gcm",
@@ -53,8 +60,16 @@ The subscription link should download a JSON file that contains an array of prox
 
 For examples, your local subnet is `192.168.0.0/16`.
 
+#### Use subscription link
+
 ```shell
 docker run --privileged -e URL=https://example.com/ -e SUBNET=192.168.0.0/16 sstun/ss-tun
+```
+
+#### Use local config file
+
+```shell
+docker run --privileged -v /etc/ss/config.json:/ss-sub.json -e SUBNET=192.168.0.0/16 sstun/ss-tun
 ```
 
 ### Change gateway
