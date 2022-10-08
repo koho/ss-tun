@@ -34,7 +34,6 @@ jq --arg ip "$SS_IP" '.server = $ip | .locals = [{"protocol": "tun", "tun_interf
 
 # Proxy config is ready now
 TITLE=$(jq -r '.remarks + "(" + .name + ")"' ss.json)
-[-z "$ENCODING"] || TITLE=$(echo $TITLE | iconv -f utf8 -t $ENCODING -c)
 echo "[ss-tun] using proxy '$TITLE' at $SS_IP"
 
 # Start proxy client
