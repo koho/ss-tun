@@ -34,7 +34,9 @@ jq --arg ip "$SS_IP" '.server = $ip | .local_address = "127.0.0.1" | .local_port
 SS_LOCAL=$(jq -r '(.local_address) + ":" + (.local_port | tostring)' ss.json)
 
 # Proxy config is ready now
-echo "[ss-tun] using proxy '$(jq -r '.remarks // empty' ss.json)($(jq -r '.name // empty' ss.json))' at $SS_IP"
+TITLE=$(jq -r '.remarks + "(" + .name + ")"' ss.json)
+[-z "$ENCODING"] || TITLE=$(echo $TITLE | iconv -f utf8 -t $ENCODING -c)
+echo "[ss-tun] using proxy '$TITLE' at $SS_IP"
 
 # Start proxy client
 ss-local -c ss.json &

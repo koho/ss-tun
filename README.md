@@ -23,12 +23,13 @@ You must run this container in `--privileged` mode. See [Run](#Run).
 
 ### Environment variable
 
-| Env    | Description                                          | Required |
-|--------|------------------------------------------------------|----------|
-| URL    | Shadowsocks subscription link                        | No       |
-| SUBNET | Subnet (CIDR) traffic that goes into tunnel          | Yes      |
-| NAME   | Use the specific named proxy in subscription         | No       |
-| UPDATE | If "true", update config file from subscription link | No       |
+| Env      | Description                                           | Required |
+|----------|-------------------------------------------------------|----------|
+| URL      | Shadowsocks subscription link.                        | No       |
+| SUBNET   | Subnet (CIDR) traffic that goes into tunnel.          | Yes      |
+| NAME     | Use the specific named proxy in subscription.         | No       |
+| UPDATE   | If "true", update config file from subscription link. | No       |
+| ENCODING | Log output encoding.                                  | No       |
 
 If you don't use subscription link, mount the local config file to the container
 using `-v /etc/ss/config.json:/ss-sub.json`.

@@ -33,7 +33,9 @@ SS_IP=$(getent ahostsv4 $SS_DOMAIN | awk 'NR==1{ print $1 }')
 jq --arg ip "$SS_IP" '.server = $ip | .locals = [{"protocol": "tun", "tun_interface_name": "proxy"}]' ss.json > ss.json.tmp && mv ss.json.tmp ss.json
 
 # Proxy config is ready now
-echo "[ss-tun] using proxy '$(jq -r '.remarks // empty' ss.json)($(jq -r '.name // empty' ss.json))' at $SS_IP"
+TITLE=$(jq -r '.remarks + "(" + .name + ")"' ss.json)
+[-z "$ENCODING"] || TITLE=$(echo $TITLE | iconv -f utf8 -t $ENCODING -c)
+echo "[ss-tun] using proxy '$TITLE' at $SS_IP"
 
 # Start proxy client
 sslocal -c ss.json &
